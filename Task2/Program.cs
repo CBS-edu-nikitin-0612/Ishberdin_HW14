@@ -15,11 +15,21 @@ namespace Task2
     {
         static void Main()
         {
+            Pupil pupil = new BadPupil();
+            Pupil pupil1 = new ExcelentPupil();
+            ClassRoom classRoom = new ClassRoom(pupil, pupil1);
+            classRoom.Write();
+            classRoom.Read();
+            classRoom.Study();
+            classRoom.Relax();
+            Console.ReadKey();
         }
     }
     class ClassRoom
     {
         public Pupil[] pupils = new Pupil[4];
+
+        #region [Constructions]
         ClassRoom(Pupil pupil1, Pupil pupil2, Pupil pupil3, Pupil pupil4)
         {
             pupils[0] = pupil1;
@@ -27,14 +37,15 @@ namespace Task2
             pupils[2] = pupil3;
             pupils[3] = pupil4;
         }
-        ClassRoom(Pupil pupil1, Pupil pupil2, Pupil pupil3)
-        {
-            new ClassRoom(pupil1, pupil2, pupil3, new Pupil());
-        }
-        ClassRoom(Pupil pupil1, Pupil pupil2)
-        {
-            new ClassRoom(pupil1, pupil2, new Pupil(), new Pupil());
-        }
+        public ClassRoom(Pupil pupil1, Pupil pupil2, Pupil pupil3) :
+            this(pupil1, pupil2, pupil3, new Pupil())
+        { }
+
+        public ClassRoom(Pupil pupil1, Pupil pupil2) :
+            this(pupil1, pupil2, new Pupil(), new Pupil())
+        { }
+        #endregion
+
         public void Study()
         {
             foreach (Pupil pupil in pupils)
@@ -67,35 +78,34 @@ namespace Task2
     }
     class Pupil
     {
-        public void Study()
+        public virtual void Study()
         => Console.WriteLine("Normal study");
-        public void Read()
+        public virtual void Read()
         => Console.WriteLine("Normal read");
-        public void Write()
+        public virtual void Write()
         => Console.WriteLine("Normal write");
-        public void Relax()
+        public virtual void Relax()
         => Console.WriteLine("Normal relax");
     }
     class ExcelentPupil : Pupil
     {
-        public new void Study() => Console.WriteLine("Excelent study");
-        public new void Read() => Console.WriteLine("Excelent read");
-        public new void Write() => Console.WriteLine("Excelent write");
-        public new void Relax()
-        => Console.WriteLine("Excelent relax");
+        public override void Study() => Console.WriteLine("Excelent study");
+        public override void Read() => Console.WriteLine("Excelent read");
+        public override void Write() => Console.WriteLine("Excelent write");
+        public override void Relax() => Console.WriteLine("Excelent relax");
     }
     class GoodPupil : Pupil
     {
-        public new void Study() => Console.WriteLine("Good study");
-        public new void Read() => Console.WriteLine("Good read");
-        public new void Write() => Console.WriteLine("Good write");
-        public new void Relax() => Console.WriteLine("Good relax");
+        public override void Study() => Console.WriteLine("Good study");
+        public override void Read() => Console.WriteLine("Good read");
+        public override void Write() => Console.WriteLine("Good write");
+        public override void Relax() => Console.WriteLine("Good relax");
     }
     class BadPupil : Pupil
     {
-        public new void Study() => Console.WriteLine("Bad study");
-        public new void Read() => Console.WriteLine("Bad read");
-        public new void Write() => Console.WriteLine("Bad write");
-        public new void Relax() => Console.WriteLine("Bad relax");
+        public override void Study() => Console.WriteLine("Bad study");
+        public override void Read() => Console.WriteLine("Bad read");
+        public override void Write() => Console.WriteLine("Bad write");
+        public override void Relax() => Console.WriteLine("Bad relax");
     }
 }
